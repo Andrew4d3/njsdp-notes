@@ -1,3 +1,5 @@
+// Page 111
+
 Promise = require('bluebird');
 
 const async1 = Promise.promisify(function (callback) {
@@ -32,11 +34,39 @@ const async4 = Promise.promisify(function (callback) {
   }, 3000);
 });
 
+const notFour = Promise.promisify(function (number, callback) {
+  setTimeout(function () {
+    // Do something here!
+    if (number === 4){
+      const error = new Error('ERROR: The number is 4');
+      return callback(error);
+    }
+
+    callback(null, true);
+  }, 1000);
+});
+
+function promisifyError() {
+  console.log("Promisifyng error now:");
+  notFour(2)
+  .then((result) => {
+    console.log("Result is " + result);
+    return notFour(4);
+  })
+  .then((result) => {
+    console.log("Result is " + result);
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+}
+
 console.log("Running async functions in sequence")
 async1()
-  .then(() => async2())
-  .then(() => async3())
-  .then(() => async4())
-  .then(() => {
-    console.log("END!");
-  });
+.then(() => async2())
+.then(() => async3())
+.then(() => async4())
+.then(() => {
+  console.log("END!");
+  promisifyError();
+});
