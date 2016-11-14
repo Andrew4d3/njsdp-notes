@@ -1,0 +1,27 @@
+{
+  "name": "njsdp-notes",
+  "version": "1.0.0",
+  "description": "Personal notes for Node.js Design Patterns book by Mario Casciaro",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://Andrew4d3@github.com/Andrew4d3/njsdp-notes.git"
+  },
+  "keywords": [
+    "notes",
+    "nodejs"
+  ],
+  "author": "Andrew4d3",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Andrew4d3/njsdp-notes/issues"
+  },
+  "homepage": "https://github.com/Andrew4d3/njsdp-notes#readme",
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "co": "^4.6.0"
+  }
+}

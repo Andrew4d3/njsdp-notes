@@ -5,7 +5,7 @@ function searchNumber(toFind, callback) {
     steps ++;
     var generated = parseInt(Math.random()*10);
     console.log("Number generated: " + generated)
-    if (generated == toFind){
+    if (generated == toFind) {
       clearInterval(interval);
       callback(generated, steps);
     }

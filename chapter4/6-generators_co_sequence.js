@@ -1,6 +1,7 @@
-// Page 111
+// Page 126
 
 Promise = require('bluebird');
+const co = require('co');
 
 const async1 = Promise.promisify(function (callback) {
   setTimeout(function () {
@@ -45,27 +46,22 @@ const notFour = Promise.promisify(function (number, callback) {
   }, 1000);
 });
 
-function promisifyError() {
-  console.log("Promisifyng error now:");
-  notFour(2)
-  .then((result) => {
-    console.log("Result is " + result);
-    return notFour(4);
-  })
-  .then((result) => {
-    console.log("Result is " + result);
-  })
-  .catch((error) => {
-    console.log(error);
-  })
-}
-
-console.log("Running async functions in sequence")
-async1()
-.then(() => async2())
-.then(() => async3())
-.then(() => async4())
-.then(() => {
-  console.log("END!");
-  promisifyError();
+co(function *(){
+  console.log("Running async calls in sequence using generators");
+  yield async1();
+  yield async2();
+  yield async3();
+  yield async4();
+  console.log("Done!");
+  let isNotFour = yield notFour(2);
+  console.log(isNotFour, "<--- is not 4?");
+  // We can use try-catch blocks with this approach
+  try {
+    let isNotFour = yield notFour(4);
+  } catch (e) {
+    console.log(e, "Error found...");
+  }
+}).catch(function(err) {
+  // Uncaught Error...
+  console.log(err, "Uncaught error...");
 });
